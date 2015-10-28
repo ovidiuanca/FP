@@ -292,7 +292,6 @@ def main():
 	'''
 	The main function.
 	'''
-	#Thelist = [-12, 24, 36, 12, -43, 101, 50, 255, -13, 24, 36, 12, -11, 13, 18, 23]
 	Thelist = []
 	print("List before: ", Thelist)
 	doMenu(Thelist)
