@@ -1,0 +1,52 @@
+from domain import *
+
+class Repository:
+	def __init__(self):
+		self.my_list = []
+
+class PersonRepository(Repository):
+
+	def __init__(self):
+		self.list_persons = Repository()
+
+	def add_p(self, person):
+		self.list_persons.append(person)
+
+	def search_person(self, id_to_check):
+		for pers in self.list_persons:
+			if (pers.ID == id_to_check):
+				PersonRepository.print_person(pers)
+
+	def print_all(self):
+		list_activities = ActivityRepository()
+		for obj in self.list_persons:
+			print("ID: " + obj.ID)
+			print("Name: " + obj.name)
+			print("Phone: " + obj.phone)
+			print("Address: " + obj.address)
+			print("\nThe activities for " + obj.name + ":\n")
+			for act in self.list_activities:
+				if (act.ID == obj.ID):
+					print("	ID: " + act.ID)
+					print("	Date: " + act.date)
+					print("	Time: " + act.time)
+					print("	Description: " + act.description + '\n')
+
+	@staticmethod
+	def print_person(person):
+		
+
+class ActivityRepository(Repository):
+
+	def __init__(self):
+		self.list_activities = Repository()
+
+	def add_a(self, activity):
+		self.list_activities.append(activity)
+
+	@staticmethod	
+	def print_person(person):
+		print("ID: " + person.ID)
+		print("Name: " + person.name)
+		print("Phone: " + person.phone)
+		print("Address: " + person.address)

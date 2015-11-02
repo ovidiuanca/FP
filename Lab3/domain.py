@@ -1,9 +1,13 @@
-class Persons:
-	def __init__(self, ID, name, phone, address):
+class Person:
+	def __init__(self, ID, name, phone, address, activities):
 		self.ID = ID
 		self.name = name
 		self.phone = phone
 		self.address = address
+		self.activities = activities
+
+	def get_ID(self):
+		return (self.ID)
 
 	def set_ID(self, ID):
 		self.ID = ID
@@ -17,14 +21,9 @@ class Persons:
 	def set_address(self, address):
 		self.address = address
 
-class Activities:
+class Activity:
 	def __init__(self, ID, date, time, description):
 		self.ID = ID
 		self.date = date
 		self.time = time
 		self.description = description
-
-	
-
-
-

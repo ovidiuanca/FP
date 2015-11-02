@@ -7,18 +7,17 @@ class UI:
 		self._controller = my_controller
 
 	def print_menu(self):
-		print("X=================MENU===================X")
-		print("# <1> Add an activity			 #")
-		print("# <2> Add a person			 #")
-		print("# <3> Update				 #")
-		print("# <4> List activities			 #")
-		print("# <5> List persons and their activities  #")
-		print("# <6> Search an activity		 #")
-		print("# <7> Sorting				 #")
-		print("# <8> Undo				 #")
-		print("# <9> Redo				 #")
-		print("# <0> Exit				 #")
-		print("X========================================X\n")
+		print("Available commands:")
+		print("<1> Add an activity")
+		print("<2> Add a person")
+		print("<3> Update")
+		print("<4> List persons and activities")
+		print("<5> Search a person")
+		print("<6> Search an activity")
+		print("<7> Sorting")
+		print("<8> Undo")
+		print("<9> Redo")
+		print("<0> Exit\n")
 	
 	def do_menu(self):
 		while (True):
@@ -36,7 +35,7 @@ class UI:
 			elif (comm == '4'):
 				self.print_activities()
 			elif (comm == '5'):
-				self.print_persons()
+				pass
 			elif (comm == '6'):
 				pass
 			elif (comm == '7'):
@@ -51,7 +50,7 @@ class UI:
 	def add_activity(self):
 		while (True):
 			ID = input("Insert the ID of the activity: ")
-			if (Validator.verify_time(ID)):
+			if (Validator.verify_numeric(ID)):
 				break
 			else:
 				print("ID invalid!")
@@ -71,22 +70,14 @@ class UI:
 		self._controller.add_activity(ID, date, time, description)
 
 	def print_activities(self):
-		my_list = self._controller.getActivities()
+		my_list = self._controller.getAll()
 		for act in my_list:
 			print("ID: " + act.ID + " Date: " + act.date + " Time: " + act.time + " Description: " + act.description + '\n')
-
-	def print_persons(self):
-		my_list = self._controller.getPersons()
-		for pers in my_list:
-			print("ID: " + pers.ID + " Name: " + pers.name + " Mobile: " + pers.phone + " Address: " + pers.address + '\n')
-			print("This person's activities are:\n")
-			for act in pers.activities:
-				print("ID: " + act.ID + " Year: " + act.date + " Duration: " + act.time + " Description: " + act.description + '\n')
 
 	def add_person(self):
 		while (True):
 			ID = input("Give the ID for the person: ")
-			if (Validator.verify_time(ID)):
+			if (Validator.verify_numeric(ID)):
 				break
 			else:
 				print("Please enter a valid ID!")
@@ -106,22 +97,22 @@ class UI:
 		activities = []
 		ok = 1
 		while (ok):
-			activity_id = input("\nGive the ID of an activity for the person: ")
-			if (activity_id == '0'):
-				break
+			activity_id = input("Give the ID of an activity for the person: ")
 			if (self._controller.search_activity(activity_id)):
 				activities.append(self._controller.get_activity(activity_id))
-				while (True):
-					dec = input("Do you want to add another activity for the person? <y> or <n>: ")
-					if (dec == 'y'):
-						break
-					elif (dec == 'n'):
-						ok = 0
-						break
-					else:
-						print("Only answer with 'y' or 'n'!")	
+				while (True)
+					dec
 			else:
 				print("There is no such activity!")
+			while (True):
+				dec = input("Do you want to add another activity for the person? <y> or <n>")
+				if (dec == 'y'):
+					break
+				elif (dec == 'n'):
+					ok = 0
+					break
+				else:
+					print("Only answer with 'y' or 'n'!")
 		self._controller.add_person(ID, name, phone, address, activities)
 
 	@staticmethod
