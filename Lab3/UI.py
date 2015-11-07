@@ -54,7 +54,7 @@ class UI:
 			elif (comm == '8'):
 				self.search_person()
 			elif (comm == '9'):
-				pass
+				self.update_activity()	
 			elif (comm == '10'):
 				pass
 			elif (comm == '11'):
@@ -205,3 +205,27 @@ class UI:
 		print("This person's activities are: \n")
 		for act in person.activities:
 			self.print_one_activity(act)
+
+	def update_activity_menu(self):
+		pass	
+	def update_activity(self):
+		activity_id = input("Give the ID of the activity you want to update: ")
+		if (not self._controller.search_activity(activity_id)):
+			print("There is no such activity!")
+		else:
+			print("This is the current activity: ")
+			activity = self._controller.get_activity(activity_id)
+			self.print_one_activity(activity)
+			self.print_activity_update_menu()
+			self._controller.update_activity(activity_id)
+
+	def print_activity_update_menu(self):
+		print("What do you want to update?\n")
+		print("X========================X")
+		print("# <1> Change date        #")
+		print("# <2> Change time        #")
+		print("# <3> Change description #")
+		print("# <0> Exit               #")
+		print("X========================X")
+			
+

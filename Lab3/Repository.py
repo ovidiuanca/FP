@@ -28,6 +28,11 @@ class PersonRepository(Repository):
 				if (activity_id == act.ID):
 					pers.activities.remove(act)
 
+	def update(self, activity_id):
+		for act in my_list:
+			if (act.ID == activity_id):
+				
+
 class ActivityRepository(Repository):
 	def remove(self, activity_id):
 		persons = PersonRepository()

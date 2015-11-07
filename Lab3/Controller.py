@@ -74,3 +74,7 @@ class Controller:
 	def remove_person(self, person_id):
 		self._person_repository.remove(person_id)
 
+	def update_activity(self, activity_id):
+		self._person_repository.update(activity_id)
+
+
