@@ -56,9 +56,9 @@ class UI:
 			elif (comm == '9'):
 				self.update_activity()	
 			elif (comm == '10'):
-				pass
+				self.update_person()
 			elif (comm == '11'):
-				pass
+				self.sort()
 			elif (comm == '12'):
 				pass
 			elif (comm == '13'):
@@ -209,6 +209,7 @@ class UI:
 	def update_activity_menu(self):
 		pass	
 	def update_activity(self):
+		self.print_activities()
 		activity_id = input("Give the ID of the activity you want to update: ")
 		if (not self._controller.search_activity(activity_id)):
 			print("There is no such activity!")
@@ -217,15 +218,116 @@ class UI:
 			activity = self._controller.get_activity(activity_id)
 			self.print_one_activity(activity)
 			self.print_activity_update_menu()
-			self._controller.update_activity(activity_id)
+			comm = input("Give your command: ")
+			if (comm == '1'):
+				new_date = input("Give the new date: ")
+				self._controller.update_date(activity_id, new_date)
+			elif (comm == '2'):
+				new_time = input("Give the new duration: ")
+				self._controller.update_time(activity_id, new_time)
+			elif (comm == '3'):
+				new_description = input("Give the new description: ")
+				self._controller.update_description(activity_id, new_description)
+			elif (comm == '4'):
+				self.do_menu()
+			else:
+				print("Wrong command!")
 
 	def print_activity_update_menu(self):
-		print("What do you want to update?\n")
+		print("\nWhat do you want to update?\n")
 		print("X========================X")
 		print("# <1> Change date        #")
-		print("# <2> Change time        #")
+		print("# <2> Change duration    #")
 		print("# <3> Change description #")
-		print("# <0> Exit               #")
+		print("# <0> Abort              #")
 		print("X========================X")
 			
+	def update_person(self):
+		print("These are the current persons: ")
+		self.print_persons()
+		person_id = input("Give the ID of the person you want to update: ")
+		if (not self._controller.search_person(person_id)):
+			print("There is no such person!")
+		else:
+			print("This is the person:")
+			person = self._controller.get_person(person_id)
+			self.print_one_person(person)
+			self.print_person_update_menu()
+			comm = input("Give your command: ")
+			if (comm == '1'):
+				new_name = input("Give the new name: ")
+				self._controller.update_name(person_id, new_name)
+			elif (comm == '2'):
+				new_phone = input("Give the new mobile number: ")
+				self._controller.update_phone(person_id, new_phone)
+			elif (comm == '3'):
+				new_address = input("Give the new address: ")
+				self._controller.update_address(person_id, new_address)
+			elif (comm == '4'):
+				print("These are the current activities:")
+				self.print_activities()
+				new_activities = []
+				act_string  = input("This person's activities are removed. Please add the ID's for the new ones: ")
+				new_activities = act_string.split()
+				self._controller.update_activities(person_id, new_activities)
+			elif (comm == '0'):
+				self.do_menu()				
+			else:
+				print("Wrong command!")
 
+	def print_person_update_menu(self):
+		print("\nWhat do you want to update?\n")
+		print("X==========================X")
+		print("# <1> Change name          #")
+		print("# <2> Change mobile number #")
+		print("# <3> Change address       #")
+		print("# <4> Change activities    #")
+		print("# <0> Abort                #")
+		print("X==========================X")
+
+	def sort(self):
+		self.print_sort_menu()
+		comm = input("Give your command: ")
+		if (comm == '1'):
+			self.print_sort1()
+		elif (comm == '2'):
+			self.print_sort2()
+		elif (comm == '3'):
+			self.print_sort3()
+		elif (comm == '4'):
+			self.print_sort4()
+		elif (comm == '0'):
+			self.do_menu()
+		else:
+			print("Wrong command!")
+
+	def print_sort_menu(self):
+		print("X================================================================X")
+		print("# <1> List a person's activities alphabetically                  #")
+		print("# <2> List a person's activities by date                         #")
+		print("# <3> List person's having activities between date1 and date2    #")
+		print("# <4> List activities from a date, alphabetically by description #")
+		print("# <5> Abort                                                      #")
+		print("X================================================================X")
+
+	def print_sort1(self):
+		person_id = input("Give the ID of the person you want its activities listed alphabetically: ")
+		activities = self._controller.sort1(person_id)
+		for act in activities:
+			print(act.date + " " + act.time + " " + act.description)
+	def print_sort2(self):
+		person_id = input("Give the ID of the person you want its activities listed by date: ")
+		activities = self._controller.sort2(person_id)
+		for act in activities:
+			print(act.date + " " + act.time + " " + act.description)
+	def print_sort3(self):
+		date1 = input("Give the date1, as an year: ")
+		date2 = input("Give the date2, as an year: ")
+		new_persons = self._controller.sort3(date1, date2)
+		if (len(new_persons) == 0):
+			print("No persons have activities in that interval!")
+		else:
+			for pers_name in new_persons:
+				print(pers_name)
+	def print_sort4(self):
+		pass

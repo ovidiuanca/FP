@@ -28,10 +28,29 @@ class PersonRepository(Repository):
 				if (activity_id == act.ID):
 					pers.activities.remove(act)
 
-	def update(self, activity_id):
-		for act in my_list:
-			if (act.ID == activity_id):
-				
+	def update_name(self, person_id, new_name):
+		for pers in self.my_list:
+			if (pers.ID == person_id):
+				pers.set_name(new_name)
+
+	def update_phone(self, person_id, new_phone):
+		for pers in self.my_list:
+			if (pers.ID == person_id):
+				pers.set_phone(new_phone)
+
+	def update_address(self, person_id, new_address):
+		for pers in self.my_list:
+			if (pers.ID == person_id):
+				pers.set_address(new_address)
+
+	def update_activities(self, person_id, new_activities, all_activities):
+		for pers in self.my_list:
+			if (pers.ID == person_id):
+				del(pers.activities[:])
+				for n_act in new_activities:
+					for a_act in all_activities:
+						if (n_act == a_act.ID):
+							pers.activities.append(a_act)
 
 class ActivityRepository(Repository):
 	def remove(self, activity_id):
@@ -40,3 +59,17 @@ class ActivityRepository(Repository):
 			if (act.ID == activity_id):
 				self.my_list.remove(act)
 
+	def update_date(self, activity_id, new_date):
+		for act in self.my_list:
+			if (act.ID == activity_id):
+				act.set_date(new_date)
+
+	def update_time(self, activity_id, new_time):
+		for act in self.my_list:
+			if (act.ID == activity_id):
+				act.set_time(new_time)
+				
+	def update_description(self, activity_id, new_description):
+		for act in self.my_list:
+			if (act.ID == activity_id):
+				act.set_description(new_description)

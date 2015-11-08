@@ -74,7 +74,58 @@ class Controller:
 	def remove_person(self, person_id):
 		self._person_repository.remove(person_id)
 
-	def update_activity(self, activity_id):
-		self._person_repository.update(activity_id)
+	def update_date(self, activity_id, new_date):
+		self._activity_repository.update_date(activity_id, new_date)
 
+	def update_time(self, activity_id, new_time):
+		self._activity_repository.update_time(activity_id, new_time)
 
+	def update_description(self, activity_id, new_description):
+		self._activity_repository.update_description(activity_id, new_description)
+
+	def update_name(self, person_id, new_name):
+		self._person_repository.update_name(person_id, new_name)
+
+	def update_phone(self, person_id, new_phone):
+		self._person_repository.update_phone(person_id, new_phone)
+
+	def update_address(self, person_id, new_address):
+		self._person_repository.update_address(person_id, new_address)
+
+	def update_activities(self, person_id, new_activities):
+		all_activities = self.getActivities()
+		self._person_repository.update_activities(person_id, new_activities, all_activities)
+
+	def sort1(self, person_id):
+			persons = self._person_repository.getAll()
+			activities = []
+			for pers in persons:
+				if (pers.ID == person_id):
+					the_person = pers
+			for act in the_person.activities:
+				activities.append(act)
+			activities.sort(key = lambda act: act.description)
+			return (activities)
+
+	def sort2(self, person_id):
+			persons = self._person_repository.getAll()
+			activities = []
+			for pers in persons:
+				if (pers.ID == person_id):
+					the_person = pers
+			for act in the_person.activities:
+				activities.append(act)
+			activities.sort(key = lambda act: act.date)
+			return (activities)
+
+	def sort3(self, date1, date2):
+		persons = self._person_repository.getAll()
+		new_persons = []
+		for pers in persons:
+			ok = 0
+			for act in pers.activities:
+				if (act.date <= date2 and act.date >= date1):
+					ok = 1
+			if (ok):
+				new_persons.append(pers.name)
+		return (new_persons)
