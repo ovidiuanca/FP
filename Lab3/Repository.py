@@ -1,17 +1,30 @@
 from domain import *
-
+from Validator import *
 class Repository:
 	'''
 	This is the Repository class, the parent class, that containes an empty list.
 	'''
 	def __init__(self):
 		self.my_list = []
+		self.undo_list = []
+		self.redo_list = []
 
-	def add(self, object):
-		self.my_list.append(object)
+	def add(self, my_object):
+		Validator.search_activity(self.my_list, my_object)
+		self.my_list.append(my_object)
+		self.undo_list.append(my_object)
+		self.redo_list.append(my_object)
 
 	def getAll(self):
 		return (self.my_list)
+
+	def undo(self):
+		if (len(self.undo_list) > 0):
+			self.redo_list.append(self.my_list)
+			self.my_list = self.undo_list[-1]
+			self.undo_list.pop(-1)
+			return (1)
+		return (0)
 	
 class PersonRepository(Repository):
 	'''
